@@ -1,4 +1,4 @@
-package com.iture.easyUtil.file;
+package com.iture.easyUtil.csv;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -40,7 +40,7 @@ public class CsvUtils {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
@@ -48,7 +48,7 @@ public class CsvUtils {
 				br.close();
 				is.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 		return list;
@@ -85,13 +85,13 @@ public class CsvUtils {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}finally{
 			try {
 				br.close();
 				is.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 		return list;
@@ -117,15 +117,15 @@ public class CsvUtils {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		} finally {
 			try {
 				bw.close();
 				os.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		}
 		return false;
