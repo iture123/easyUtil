@@ -1,4 +1,4 @@
-package com.iture.easyUtil.csv;
+package com.iture.easyUtil.txt;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,9 +17,10 @@ import java.util.List;
 import java.util.Map;
 
 public class CsvUtils {
-	/**解析为行
-	 * */
-	public static List<String> readCsv(String filePath,boolean isFilterFirstLine){
+	/**
+	 * 解析为行
+	 */
+	public static List<String> readCsv(String filePath, boolean isFilterFirstLine) {
 		File file = new File(filePath);
 		InputStream is = null;
 		BufferedReader br = null;
@@ -27,15 +28,15 @@ public class CsvUtils {
 		try {
 			is = new FileInputStream(file);
 			br = new BufferedReader(new InputStreamReader(is));
-			String line =null;
-			int i=0;
-			while((line=br.readLine())!=null){
+			String line = null;
+			int i = 0;
+			while ((line = br.readLine()) != null) {
 				i++;
-				if(isFilterFirstLine){
-					if(i !=1){
+				if (isFilterFirstLine) {
+					if (i != 1) {
 						list.add(line);
 					}
-				}else{
+				} else {
 					list.add(line);
 				}
 			}
@@ -43,50 +44,7 @@ public class CsvUtils {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
-			try {
-				br.close();
-				is.close();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
-		return list;
-	}
-	/**解析本地csv文件
-	 * */
-	private static  List<Map<String,String>> parseCsv( String filePath) {
-		File file = new File(filePath);
-		InputStream is = null;
-		BufferedReader br = null;
-		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-		try {
-			is = new FileInputStream(file);
-			br = new BufferedReader(new InputStreamReader(is));
-			String line =null;
-			int i=0;
-			String fieldArr[] = null ; //列名
-			String dataArr[];
-			Map<String,String> dataMap = null;
-			while((line=br.readLine())!=null){
-				if(i ==0){
-					fieldArr = line.split(",");
-				}else{
-					dataMap =new  LinkedHashMap<String,String> (); 
-					dataArr = line.split(",");
-					dataMap.clear();
-					for(int j=0;j<dataArr.length;j++){
-						dataMap.put(fieldArr[j], dataArr[j]);
-					}
-					list.add(dataMap);
-				}
-				i++;
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}finally{
+		} finally {
 			try {
 				br.close();
 				is.close();
@@ -97,7 +55,59 @@ public class CsvUtils {
 		return list;
 	}
 
-	public boolean createCsv(String filePath, String field,List<Map<String, Object>> list) {
+	/**
+	 * 解析本地csv文件 首行作为列名
+	 */
+	private static List<Map<String, String>> parseCsv(String filePath) {
+		File file = new File(filePath);
+		InputStream is = null;
+		BufferedReader br = null;
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		try {
+			is = new FileInputStream(file);
+			br = new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			int i = 0;
+			String fieldArr[] = null; // 列名
+			String dataArr[];
+			Map<String, String> dataMap = null;
+			while ((line = br.readLine()) != null) {
+				if (i == 0) {
+					fieldArr = line.split(",");
+				} else {
+					dataMap = new LinkedHashMap<String, String>();
+					dataArr = line.split(",");
+					dataMap.clear();
+					for (int j = 0; j < dataArr.length; j++) {
+						dataMap.put(fieldArr[j], dataArr[j]);
+					}
+					list.add(dataMap);
+				}
+				i++;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				br.close();
+				is.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return list;
+	}
+
+	/**
+	 * 写入一个新的csv文件
+	 * 
+	 * @param filePath
+	 * @param field
+	 * @param list
+	 */
+	public void writeCsv(String filePath, String field, List<Map<String, Object>> list) {
 		String fieldArr[] = field.split(",");
 		OutputStream os = null;
 		BufferedWriter bw = null;
@@ -128,6 +138,6 @@ public class CsvUtils {
 				throw new RuntimeException(e);
 			}
 		}
-		return false;
 	}
+
 }

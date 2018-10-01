@@ -5,4 +5,4 @@
  * @author iture
  *
  */
-package com.iture.easyUtil.csv;
+package com.iture.easyUtil.txt;
