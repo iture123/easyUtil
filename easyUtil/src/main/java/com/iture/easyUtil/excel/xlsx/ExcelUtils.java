@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtils {
+
 	/**
 	 * 创建一个新的excel文件，适合用来写入单sheet 页
 	 * @param filePath 文件路径
@@ -65,9 +66,12 @@ public class ExcelUtils {
 	 * @param filePath
 	 */
 	public static void writeXSSFWorkbookToLocal(XSSFWorkbook workbook,String filePath) {
+		writeXSSFWorkbookToLocal(workbook,new File(filePath));
+	}
+	public static void writeXSSFWorkbookToLocal(XSSFWorkbook workbook,File file) {
 		FileOutputStream fos;
 		try {
-			fos = new FileOutputStream(new File(filePath));
+			fos = new FileOutputStream(file);
 			workbook.write(fos);
 			workbook.close();
 			fos.close();
@@ -92,9 +96,11 @@ public class ExcelUtils {
 			for(int j =0;j < dataRow.size();j++) {
 				XSSFCell cell = row.createCell(j);
 				cell.setCellValue(dataRow.get(j));
+				sheet.autoSizeColumn(j);
 			}
 		}
 	}
+	
 	public static void main(String[] args) {
 		List<List<String>> dataRows  = new ArrayList<>();
 		List<String> row = new ArrayList<>();

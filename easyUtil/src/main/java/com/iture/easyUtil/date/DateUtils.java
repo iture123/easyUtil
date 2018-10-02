@@ -23,8 +23,7 @@ public class DateUtils {
 		 return sdf.format(date);
 	}
 	public static int getYyyyMMdd(Date date) {
-		 SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-		 return Integer.parseInt(sdf.format(date));
+		 return Integer.parseInt(formatDate(date,"yyyyMMdd"));
 	}
 	public static int getYyyyMMdd(long ms) {
 		 SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
@@ -40,6 +39,10 @@ public class DateUtils {
 		}
 	}
 	public static Date parseYyyyMMdd(String yyyyMMdd) {
-		 return parseDay(yyyyMMdd,"yyyyMMdd");
+		 String hhmm = formatDate(new Date(), "HHmmsss");
+		 return parseDay(yyyyMMdd+hhmm,"yyyyMMddHHmmsss");
+	}
+	public static void main(String[] args) {
+		System.out.println(parseYyyyMMdd("20180901"));
 	}
 } 
