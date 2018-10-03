@@ -42,7 +42,22 @@ public class DateUtils {
 		 String hhmm = formatDate(new Date(), "HHmmsss");
 		 return parseDay(yyyyMMdd+hhmm,"yyyyMMddHHmmsss");
 	}
+	/**
+	 *  对比两个日期相差天数
+	 *  date2-date1
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static int dimDd(Date date1,Date date2) {
+	    int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+        return days;
+	}
+	public static int dimDd(int yyyyMMdd,int yyyyMMdd2) {
+		return dimDd(parseYyyyMMdd(yyyyMMdd+""),parseYyyyMMdd(yyyyMMdd2+""));
+	}
 	public static void main(String[] args) {
 		System.out.println(parseYyyyMMdd("20180901"));
 	}
+	
 } 
