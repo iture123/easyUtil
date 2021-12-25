@@ -32,6 +32,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          du -s -h 
+          du -s -h *
           date
+          echo $GITHUB_WORKSPACE
+          du -s -h $GITHUB_WORKSPACE
           echo test, and deploy your project.
