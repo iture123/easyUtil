@@ -34,5 +34,5 @@ jobs:
         run: |
           date
           ls -l $GITHUB_WORKSPACE
-          bash ${GITHUB_WORKSPACE}/find_illegal_licensesh.sh
+          bash ${GITHUB_WORKSPACE}/easyUtil/find_illegal_licensesh.sh
           echo test, and deploy your project.
